@@ -10,34 +10,58 @@ CLEVER and competition participants usually don't share libraries because it wil
 ### Dulat_library
 
 's1=0
+
 s2=0
+
 kp_line = 0
+
 kd_line =0
+
 @ki=0
+
 @integral=0
+
 kp_align = 0
+
 kd_align = 0
+
 @OldE = 0
+
 kB = 0
+
 kC = 0
+
 curr_speed = 0
+
 @DestEnc = 0
+
 @prevTime = 0
+
+
 @prevEnc = 0
+
 @avgs=0
+
 s1exists = "true"
+
 s2exists = "true"
+
 kp_align1 = 0
+
 kd_align1 = 0
 
+
 @kp_sync = 2.5
+
 @TurnRatio = 0.6
 
 @StopSignal = 0
-@AsyncPort = "A"
-@AsyncSpeed = 40
-@AsyncDeg = 150
 
+@AsyncPort = "A"
+
+@AsyncSpeed = 40
+
+@AsyncDeg = 150
 ' -------------------------------------------
 '''' Задать для управления 2 больших мотора. В - слева, С - справа
 Function LargeBase()
