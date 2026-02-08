@@ -9,7 +9,7 @@ CLEVER and competition participants usually don't share libraries because it wil
 
 ### Dulat_library
 
-s1=0
+'s1=0
 s2=0
 kp_line = 0
 kd_line =0
