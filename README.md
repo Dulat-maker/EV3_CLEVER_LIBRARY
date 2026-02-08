@@ -9,6 +9,7 @@ CLEVER and competition participants usually don't share libraries because it wil
 
 ### Dulat_library
 "Parameters
+
 's1=0
 
 s2=0
@@ -62,18 +63,22 @@ kd_align1 = 0
 @AsyncSpeed = 40
 
 @AsyncDeg = 150
+
 "
 "Main Library and functions
-Function LargeBase()
 
-  @kB = 1
-  
-  @kC = 1
-  
-EndFunction
+"DataBase fot robot where B motor- right and C motor- Left
 
-' -------------------------------------------
-'''' Задать для управления 2 средних мотора. В - слева, С - справа
+  Function LargeBase()
+
+    @kB = 1
+  
+    @kC = 1
+  
+  EndFunction
+
+
+
 Function MiddleBase()
   @kB = -1
   @kC = 1
