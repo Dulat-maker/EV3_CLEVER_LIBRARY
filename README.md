@@ -8,7 +8,7 @@ CLEVER and competition participants usually don't share libraries because it wil
 
 
 ### Dulat_library
-
+"Parameters
 's1=0
 
 s2=0
@@ -62,8 +62,8 @@ kd_align1 = 0
 @AsyncSpeed = 40
 
 @AsyncDeg = 150
-
-
+"
+"Main Library and functions
 Function LargeBase()
 
   @kB = 1
