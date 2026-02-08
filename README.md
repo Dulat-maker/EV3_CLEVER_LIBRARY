@@ -69,13 +69,13 @@ kd_align1 = 0
 
 "DataBase fot robot where B motor- right and C motor- Left
 
-  Function LargeBase()
+    Function LargeBase()
 
-    @kB = 1
+      @kB = 1
   
-    @kC = 1
+      @kC = 1
   
-  EndFunction
+    EndFunction
 
 
 
