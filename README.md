@@ -79,10 +79,10 @@ kd_align1 = 0
 
 
 
-Function MiddleBase()
-  @kB = -1
-  @kC = 1
-EndFunction
+    Function MiddleBase()
+      @kB = -1
+      @kC = 1
+    EndFunction
 
 
 `' check that all parameters are standart
