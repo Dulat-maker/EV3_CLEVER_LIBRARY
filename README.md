@@ -85,95 +85,87 @@ Function MiddleBase()
 EndFunction
 
 
-' -------------------------------------------
-'''' Задать для управления 2 средних мотора с шестерёнками. В - слева, С - справа
-Function MiddleBase2()
-  @kB = 1
-  @kC = -1
-EndFunction
+`' check that all parameters are standart
+    Function Check()
+      error = ""
+      If @kB = 0 Or @kC = 0 Then
+        error = "kb,kc=0"
+      EndIf
+      If error <> "" Then
+        ' display error
+        Speaker.Play(100, "Error alarm")
+        EV3.SetLEDColor("RED", "FLASH")
+
+        ' Program waits till any button is pressed
+        While Buttons.Current <> ""
+        EndWhile
+        While Buttons.Current = ""
+        EndWhile
+        Program.End()
+      EndIf
+    EndFunction
 
 
-' -------------------------------------------
-'''' проверка, что все переменные заданы
-Function Check()
-  error = ""
-  If @kB = 0 Or @kC = 0 Then
-    error = "kb,kc=0"
-  EndIf
-  If error <> "" Then
-    ' вывод ошибки
-    Speaker.Play(100, "Error alarm")
-    EV3.SetLEDColor("RED", "FLASH")
+    ' -------------------------------------------
+    ''''Movement that aligned on T-crossroad, 1-left, 2-right, B-left, C-right
 
-    ' ждём нажатия любой кнопки
-    While Buttons.Current <> ""
-    EndWhile
-    While Buttons.Current = ""
-    EndWhile
-    Program.End()
-  EndIf
-EndFunction
-
-
-' -------------------------------------------
-'''' Движение по линии до Т-перекрёстка, 1-слева, 2-справа, В-слева, С-справа
-Function LineT()
-  Check()
-  @OldE = 0
-  @integral = 0  ' Сброс интегральной составляющей
-  exit = 0
+    Function LineT()
+      Check()
+      @OldE = 0
+      @integral = 0  ' Сброс интегральной составляющей
+      exit = 0
   
-  ' Предварительное чтение датчиков
-  If @s1exists = "true" Then
-    @s1 = Sensor.ReadPercent(1)
-  EndIf
-  If @s2exists = "true" Then
-    @s2 = Sensor.ReadPercent(2)
-  EndIf
-  
-  While exit = 0
-    ' Движение по линии с основным регулятором
-    reg()
-    
-    ' Остановка на Т-перекрёстке: один из датчиков видит очень низкое значение яркости
-    If @s1 < 11 Or @s2 < 11 Then
-      ' Добавляем небольшую задержку и повторное чтение для подтверждения
-    
-      
-      ' Перепроверяем показания датчиков
+      ' Preliminary reading of sensors
       If @s1exists = "true" Then
         @s1 = Sensor.ReadPercent(1)
       EndIf
       If @s2exists = "true" Then
         @s2 = Sensor.ReadPercent(2)
       EndIf
-      
-      ' Если показания все еще низкие, значит мы на перекрестке
-      If @s1 < 15 Or @s2 < 15 Then
-        exit = 1
-      EndIf
-    EndIf
-    
-      ' Небольшая задержка для предотвращения перегрузки процессора
-  EndWhile
   
-  Stop()
-EndFunction
+      While exit = 0
+        'Movement along the line with the main regulators
+        reg()
+        
+        'Stop on T-crossroad:one of the sensors are seeing the glimmer
+        If @s1 < 11 Or @s2 < 11 Then
+          'Adding a little stop in movement
+        
+          
+          ' Rechecking the motors
+          If @s1exists = "true" Then
+            @s1 = Sensor.ReadPercent(1)
+          EndIf
+          If @s2exists = "true" Then
+            @s2 = Sensor.ReadPercent(2)
+          EndIf
+      
+          ' IF testimony still low, robot still on T-crossroad
+          If @s1 < 15 Or @s2 < 15 Then
+            exit = 1
+          EndIf
+        EndIf
+    
+          ' A small delay to prevent processor overload
+      EndWhile
+      
+      Stop()
+    EndFunction
 
-' -------------------------------------------
-'''' Движение по линии до Х-перекрёстка, 1-слева, 2-справа, В-слева, С-справа
-Function LineX()
-  Check()
-  @OldE = 0
-  exit = 0
-  While exit = 0
-    reg()
-    ' остановка на Х-перекрёстке: оба датчика видят маленькое значения яркости
-    If @s1 < 20 And @s2 < 20 Then
-      exit = 1
-    EndIf
-  EndWhile
-EndFunction
+    ' -------------------------------------------
+    '''' Movement on the line of X-crossroad,1-left, 20right, B-left, C-right
+    Function LineX()
+      Check()
+      @OldE = 0
+      exit = 0
+      While exit = 0
+        reg()
+        ' stop on the X-crossroad: both sensors see low amount of light
+      If @s1 < 20 And @s2 < 20 Then
+          exit = 1
+        EndIf
+      EndWhile
+    EndFunction
 
 ' -------------------------------------------
 '''' ПИД регулятор для 1 и 2 порта(колор сенсор)
