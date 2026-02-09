@@ -85,7 +85,7 @@ kd_align1 = 0
     EndFunction
 
 
-`' check that all parameters are standart
+    `' check that all parameters are standart
     Function Check()
       error = ""
       If @kB = 0 Or @kC = 0 Then
